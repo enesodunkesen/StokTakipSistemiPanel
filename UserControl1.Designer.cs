@@ -59,9 +59,9 @@
             tableLayoutPanel1.Controls.Add(radioButtonM, 3, 1);
             tableLayoutPanel1.Controls.Add(radioButtonL, 4, 1);
             tableLayoutPanel1.Controls.Add(radioButtonXL, 5, 1);
-            tableLayoutPanel1.Controls.Add(radioButtonXXL, 6, 1);
             tableLayoutPanel1.Controls.Add(comboBoxRenkler, 6, 0);
             tableLayoutPanel1.Controls.Add(textBoxFiyat, 5, 0);
+            tableLayoutPanel1.Controls.Add(radioButtonXXL, 6, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.ForeColor = Color.White;
             tableLayoutPanel1.Location = new Point(0, 0);

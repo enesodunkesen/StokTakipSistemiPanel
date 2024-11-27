@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace StokTakipSistemiPanel
 {
-    public partial class frmKategoriler : Form
+    public partial class frmÜrünler : Form
     {
-        public frmKategoriler()
+        public frmÜrünler()
         {
             InitializeComponent();
         }
-
     }
 }
