@@ -55,22 +55,22 @@
             // 
             // columnHeader3
             // 
-            columnHeader3.Text = "Ürün Adedi";
+            columnHeader3.Text = "Ürün Miktarı";
             columnHeader3.Width = 250;
             // 
             // columnHeader4
             // 
-            columnHeader4.Text = "Gönderilen Depo";
+            columnHeader4.Text = "Kaynak Depo";
             columnHeader4.Width = 250;
             // 
             // columnHeader5
             // 
-            columnHeader5.Text = "Transfer Tarihi";
+            columnHeader5.Text = "Hedef Depo";
             columnHeader5.Width = 250;
             // 
             // columnHeader2
             // 
-            columnHeader2.Text = "Güncel stok";
+            columnHeader2.Text = "Transfer Tarihi";
             columnHeader2.Width = 250;
             // 
             // button1
@@ -81,7 +81,7 @@
             button1.TabIndex = 1;
             button1.Text = "Transfer Süreçlerini Listele";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += this.button1_Click;
+            button1.Click += button1_ClickAsync;
             // 
             // frmTransfer
             // 
@@ -92,6 +92,7 @@
             Controls.Add(listView1);
             Name = "frmTransfer";
             Text = "Form2";
+            Load += frmTransfer_Load;
             ResumeLayout(false);
         }
 
