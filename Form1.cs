@@ -77,6 +77,12 @@ namespace StokTakipSistemiPanel
         {
             resetBtnBackColors();
             hareketlerBtn.BackColor = System.Drawing.Color.White;
+
+            this.pnlFormLoader.Controls.Clear();
+            frmHareketler frmHareketler_Vrb = new frmHareketler() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            frmHareketler_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(frmHareketler_Vrb);
+            frmHareketler_Vrb.Show();
         }
 
         private void transferlerBtn_Click(object sender, EventArgs e)

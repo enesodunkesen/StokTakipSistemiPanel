@@ -1,8 +1,15 @@
-﻿using System;
+﻿using StokTakipSistemiPanel.DTOs.ProductDTOs;
+using StokTakipSistemiPanel.DTOs.StockMovementDTOs;
+using StokTakipSistemiPanel.Properties;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Net.Http;
-using System.Text.Json;
+using System.Net.Http.Json;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,95 +17,80 @@ namespace StokTakipSistemiPanel
 {
     public partial class frmHareketler : Form
     {
-        private TreeView treeHareket;
+        private readonly HttpClient _httpClient;
 
         public frmHareketler()
         {
             InitializeComponent();
-            InitializeTreeView();
-        }
-
-        /// <summary>
-        /// TreeView kontrolünü başlatır.
-        /// </summary>
-        private void InitializeTreeView()
-        {
-            treeHareket = new TreeView
+            // HttpClient Başlatma
+            _httpClient = new HttpClient
             {
-                Dock = DockStyle.Fill,
-                Font = new Font("Bahnschrift", 10, FontStyle.Bold),
-                BackColor = Color.FromArgb(24, 30, 54),
-                ForeColor = Color.White
+                BaseAddress = new Uri(Resources.URL) // API adresinizi buraya yazın
             };
-
-            Controls.Add(treeHareket);
         }
+        // Form Yüklenirken Çalışacak Metot
 
-        /// <summary>
-        /// Form yüklendiğinde API'den veri alır ve TreeView'i günceller.
-        /// </summary>
-        private async void frmHareketler_Load(object sender, EventArgs e)
+
+        private async void frmHareketler_LoadAsync(object sender, EventArgs e)
         {
-            var ürünGirişVerileri = await GetHareketlerFromApiAsync();
-            UpdateTreeView(ürünGirişVerileri);
+
         }
-
-        /// <summary>
-        /// API'den ürün giriş geçmişini çeker ve TreeView'i günceller.
-        /// </summary>
-        private async Task<List<ÜrünGirişModel>> GetHareketlerFromApiAsync()
+        // API'den Hareketleri Çekip ListView'e Yükleyen Metot
+        private async Task LoadProductsAsync()
         {
-            const string apiUrl = "https://30cb-176-88-120-127.ngrok-free.app/Product"; // Gerçek API URL'sini buraya girin
-
             try
             {
-                using var httpClient = new HttpClient();
-                var response = await httpClient.GetStringAsync(apiUrl);
+                // API'den hareketleri çek
+                var stockMovements = await _httpClient.GetFromJsonAsync<List<StockMovementDto>>("api/StockMovements");
 
-                // API'den gelen JSON verilerini deserialize et
-                var ürünGirişleri = JsonSerializer.Deserialize<List<ÜrünGirişModel>>(response);
-                if (ürünGirişleri == null || ürünGirişleri.Count == 0)
+                if (stockMovements != null)
                 {
-                    MessageBox.Show("API'den herhangi bir veri alınamadı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return new List<ÜrünGirişModel>();
-                }
+                    // ListView'i temizle
+                    listView1.Items.Clear();
 
-                return ürünGirişleri;
+                    // Sütunları oluştur (yalnızca ilk kez eklenir)
+                    if (listView1.Columns.Count == 0)
+                    {
+                        listView1.Columns.Add("Ürün", 100);
+                        listView1.Columns.Add("Miktar", 100);
+                        listView1.Columns.Add("Hareket Türü", 100);
+                        listView1.Columns.Add("Mağaza", 100);
+                        listView1.Columns.Add("Hareket Tarihi", 100);
+                    }
+
+                    // Hareketleri ListView'e ekle
+                    foreach (var stockMovement in stockMovements)
+                    {
+                        ProductDto product = await _httpClient.GetFromJsonAsync<DTOs.ProductDTOs.ProductDto>($"api/Products/{stockMovement.ProductId}");
+                        string productName = product.Name;
+                        var item = new ListViewItem(productName);
+                        item.SubItems.Add(stockMovement.Quantity.ToString());
+                        item.SubItems.Add(stockMovement.MovementType);
+                        item.SubItems.Add("KayeriPark AVM");
+                        item.SubItems.Add(stockMovement.MovementDate.ToString());
+
+                        listView1.Items.Add(item); // Listeye ekle
+                    }
+                    // ListView genişliğini ayarla
+                    //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"API'den veri alınırken bir hata oluştu:\n{ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return new List<ÜrünGirişModel>();
+                // Hata durumunda kullanıcıya mesaj göster
+                MessageBox.Show($"Hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        /// <summary>
-        /// TreeView'i API'den gelen ürün giriş verileri ile doldurur.
-        /// </summary>
-        /// <param name="ürünGirişleri">Ürün giriş geçmişi.</param>
-        private void UpdateTreeView(List<ÜrünGirişModel> ürünGirişleri)
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            treeHareket.Nodes.Clear(); // TreeView'deki mevcut düğümleri temizle
 
-            // Tarihe göre sıralama
-            ürünGirişleri.Sort((x, y) => y.Tarih.CompareTo(x.Tarih)); // En son tarih en üstte gelir
-
-            foreach (var giriş in ürünGirişleri)
-            {
-                // Her giriş için bir TreeNode oluşturulup ekleniyor
-                var node = new TreeNode($"{giriş.Tarih:yyyy-MM-dd HH:mm:ss} - {giriş.ÜrünAdı} (Adet: {giriş.Adet})");
-                treeHareket.Nodes.Add(node);
-            }
         }
 
-        /// <summary>
-        /// Ürün girişlerini temsil eden model sınıfı.
-        /// </summary>
-        public class ÜrünGirişModel
+        private async void button1_ClickAsync(object sender, EventArgs e)
         {
-            public string ÜrünAdı { get; set; }
-            public int Adet { get; set; }
-            public DateTime Tarih { get; set; }
+            await LoadProductsAsync(); // Veri yükleme metodunu çağır
         }
     }
 }
