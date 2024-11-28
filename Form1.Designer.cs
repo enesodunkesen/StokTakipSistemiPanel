@@ -34,7 +34,7 @@
             transferlerBtn = new Button();
             hareketlerBtn = new Button();
             ürünlerBtn = new Button();
-            kategorilerBtn = new Button();
+            ürünEklemeBtn = new Button();
             anaEkranBtn = new Button();
             pnlUser = new Panel();
             label1 = new Label();
@@ -52,7 +52,7 @@
             panel1.Controls.Add(transferlerBtn);
             panel1.Controls.Add(hareketlerBtn);
             panel1.Controls.Add(ürünlerBtn);
-            panel1.Controls.Add(kategorilerBtn);
+            panel1.Controls.Add(ürünEklemeBtn);
             panel1.Controls.Add(anaEkranBtn);
             panel1.Controls.Add(pnlUser);
             panel1.Dock = DockStyle.Left;
@@ -112,7 +112,7 @@
             hareketlerBtn.Name = "hareketlerBtn";
             hareketlerBtn.Size = new Size(180, 50);
             hareketlerBtn.TabIndex = 4;
-            hareketlerBtn.Text = "Hareketler";
+            hareketlerBtn.Text = "Hareketler   ";
             hareketlerBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
             hareketlerBtn.UseVisualStyleBackColor = true;
             hareketlerBtn.Click += stokHareketleriBtn_Click;
@@ -131,29 +131,29 @@
             ürünlerBtn.Name = "ürünlerBtn";
             ürünlerBtn.Size = new Size(180, 50);
             ürünlerBtn.TabIndex = 3;
-            ürünlerBtn.Text = "Ürünler      ";
+            ürünlerBtn.Text = "Ürünler         ";
             ürünlerBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
             ürünlerBtn.UseVisualStyleBackColor = true;
             ürünlerBtn.Click += ürünlerBtn_Click;
             // 
-            // kategorilerBtn
+            // ürünEklemeBtn
             // 
-            kategorilerBtn.Dock = DockStyle.Top;
-            kategorilerBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
-            kategorilerBtn.FlatAppearance.BorderSize = 0;
-            kategorilerBtn.FlatStyle = FlatStyle.Flat;
-            kategorilerBtn.Font = new Font("Bahnschrift", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            kategorilerBtn.ForeColor = Color.FromArgb(41, 243, 155);
-            kategorilerBtn.Image = (Image)resources.GetObject("kategorilerBtn.Image");
-            kategorilerBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            kategorilerBtn.Location = new Point(0, 188);
-            kategorilerBtn.Name = "kategorilerBtn";
-            kategorilerBtn.Size = new Size(180, 50);
-            kategorilerBtn.TabIndex = 2;
-            kategorilerBtn.Text = "Kategoriler";
-            kategorilerBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
-            kategorilerBtn.UseVisualStyleBackColor = true;
-            kategorilerBtn.Click += kategorilerBtn_Click;
+            ürünEklemeBtn.Dock = DockStyle.Top;
+            ürünEklemeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
+            ürünEklemeBtn.FlatAppearance.BorderSize = 0;
+            ürünEklemeBtn.FlatStyle = FlatStyle.Flat;
+            ürünEklemeBtn.Font = new Font("Bahnschrift", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            ürünEklemeBtn.ForeColor = Color.FromArgb(41, 243, 155);
+            ürünEklemeBtn.Image = (Image)resources.GetObject("ürünEklemeBtn.Image");
+            ürünEklemeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ürünEklemeBtn.Location = new Point(0, 188);
+            ürünEklemeBtn.Name = "ürünEklemeBtn";
+            ürünEklemeBtn.Size = new Size(180, 50);
+            ürünEklemeBtn.TabIndex = 2;
+            ürünEklemeBtn.Text = "Ürün Ekleme";
+            ürünEklemeBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            ürünEklemeBtn.UseVisualStyleBackColor = true;
+            ürünEklemeBtn.Click += ürünEklemeBtn_Click;
             // 
             // anaEkranBtn
             // 
@@ -169,7 +169,7 @@
             anaEkranBtn.Name = "anaEkranBtn";
             anaEkranBtn.Size = new Size(180, 50);
             anaEkranBtn.TabIndex = 1;
-            anaEkranBtn.Text = "Ana Ekran";
+            anaEkranBtn.Text = "Ana Ekran   ";
             anaEkranBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
             anaEkranBtn.UseVisualStyleBackColor = true;
             anaEkranBtn.Click += anaEkranBtn_Click;
@@ -244,7 +244,7 @@
         private Label label1;
         private Button anaEkranBtn;
         private Button ürünlerBtn;
-        private Button kategorilerBtn;
+        private Button ürünEklemeBtn;
         private Button hareketlerBtn;
         private Button transferlerBtn;
         private Button çıkışBtn;

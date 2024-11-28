@@ -20,7 +20,7 @@ namespace StokTakipSistemiPanel
             Color defaultColor = Color.FromArgb(24, 30, 54);
 
             anaEkranBtn.BackColor = defaultColor;
-            kategorilerBtn.BackColor = defaultColor;
+            ürünEklemeBtn.BackColor = defaultColor;
             ürünlerBtn.BackColor = defaultColor;
             transferlerBtn.BackColor = defaultColor;
             hareketlerBtn.BackColor = defaultColor;
@@ -38,16 +38,16 @@ namespace StokTakipSistemiPanel
             frmAnaEkran_Vrb.Show();
         }
 
-        private void kategorilerBtn_Click(object sender, EventArgs e)
+        private void ürünEklemeBtn_Click(object sender, EventArgs e)
         {
             resetBtnBackColors();
-            kategorilerBtn.BackColor = System.Drawing.Color.White;
+            ürünEklemeBtn.BackColor = System.Drawing.Color.White;
 
             this.pnlFormLoader.Controls.Clear();
-            frmKategoriler frmKategoriler_Vrb = new frmKategoriler() { Dock = DockStyle.Fill, TopLevel = false, TopMost = false ,FormBorderStyle = FormBorderStyle.None };
-            frmKategoriler_Vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(frmKategoriler_Vrb);
-            frmKategoriler_Vrb.Show();
+            frmÜrünEkleme frmÜrünEkleme_Vrb = new frmÜrünEkleme() { Dock = DockStyle.Fill, TopLevel = false, TopMost = false ,FormBorderStyle = FormBorderStyle.None };
+            frmÜrünEkleme_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(frmÜrünEkleme_Vrb);
+            frmÜrünEkleme_Vrb.Show();
         }
         private void pnlFormLoader_SizeChanged(object sender, EventArgs e)
         {
