@@ -61,7 +61,17 @@ namespace StokTakipSistemiPanel
         {
             resetBtnBackColors();
             ürünlerBtn.BackColor = System.Drawing.Color.White;
+
+            // Panelin arka plan rengini de?i?tir
+            pnlFormLoader.BackColor = System.Drawing.Color.LightGray; // ?stedi?iniz rengi seçebilirsiniz
+
+            this.pnlFormLoader.Controls.Clear();
+            frmÜrünler frmÜrünler_Vrb = new frmÜrünler() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            frmÜrünler_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(frmÜrünler_Vrb);
+            frmÜrünler_Vrb.Show();
         }
+
 
         private void stokHareketleriBtn_Click(object sender, EventArgs e)
         {
@@ -73,6 +83,11 @@ namespace StokTakipSistemiPanel
         {
             resetBtnBackColors();
             transferlerBtn.BackColor = System.Drawing.Color.White;
+        }
+
+        private void pnlFormLoader_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
