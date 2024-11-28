@@ -28,12 +28,95 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmÜrünler";
+            listView1 = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
+            label1 = new Label();
+            button1 = new Button();
+            SuspendLayout();
+            // 
+            // listView1
+            // 
+            listView1.BackColor = SystemColors.Window;
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
+            listView1.Location = new Point(180, 200);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(1500, 900);
+            listView1.TabIndex = 0;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Details;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Ürün Adı";
+            columnHeader1.Width = 300;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Ürün Rengi";
+            columnHeader2.Width = 300;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Ürün Bedeni";
+            columnHeader3.Width = 300;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Ürün Fiyatı";
+            columnHeader4.Width = 300;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Ürün Adeti";
+            columnHeader5.Width = 300;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(180, 148);
+            label1.Name = "label1";
+            label1.Size = new Size(0, 15);
+            label1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(180, 113);
+            button1.Name = "button1";
+            button1.Size = new Size(169, 50);
+            button1.TabIndex = 2;
+            button1.Text = "Ürünleri Listele";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_ClickAsync;
+            // 
+            // frmÜrünler
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(button1);
+            Controls.Add(label1);
+            Controls.Add(listView1);
+            Name = "frmÜrünler";
+            Text = "frmÜrünler";
+            Load += frmÜrünler_LoadAsync;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private ListView listView1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
+        private Label label1;
+        private Button button1;
     }
 }

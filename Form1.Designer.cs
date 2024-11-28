@@ -215,6 +215,7 @@
             pnlFormLoader.Size = new Size(1034, 686);
             pnlFormLoader.TabIndex = 1;
             pnlFormLoader.SizeChanged += pnlFormLoader_SizeChanged;
+            pnlFormLoader.Paint += pnlFormLoader_Paint;
             // 
             // Form1
             // 
