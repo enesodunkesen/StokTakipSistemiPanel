@@ -89,6 +89,11 @@ namespace StokTakipSistemiPanel
         {
             resetBtnBackColors();
             transferlerBtn.BackColor = System.Drawing.Color.White;
+            this.pnlFormLoader.Controls.Clear();
+            frmTransfer frmTransfer_Vrb = new frmTransfer() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            frmTransfer_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(frmTransfer_Vrb);
+            frmTransfer_Vrb.Show();
         }
 
         private void pnlFormLoader_Paint(object sender, PaintEventArgs e)
