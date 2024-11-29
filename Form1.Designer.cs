@@ -249,5 +249,7 @@
         private Button transferlerBtn;
         private Button çıkışBtn;
         private Panel pnlFormLoader;
+        private TextBox textBox1;
+        private PictureBox pictureBox2;
     }
 }

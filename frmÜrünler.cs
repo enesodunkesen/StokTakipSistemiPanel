@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StokTakipSistemiPanel.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +23,7 @@ namespace StokTakipSistemiPanel
             // HttpClient Başlatma
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:7128/api") // API adresinizi buraya yazın
+                BaseAddress = new Uri(Resources.URL) // API adresinizi buraya yazın
             };
         }
         // Form Yüklenirken Çalışacak Metot
@@ -61,13 +62,13 @@ namespace StokTakipSistemiPanel
                         var item = new ListViewItem(product.Name);          // Adı
                         item.SubItems.Add(product.Color);                   // Rengi
                         item.SubItems.Add(product.Size);                    // Bedeni
-                        item.SubItems.Add(product.Price.ToString("C2"));    // Fiyatı
+                        item.SubItems.Add(product.Price.ToString()+"TL");    // Fiyatı
                         item.SubItems.Add(product.Quantity.ToString());     // Adedi
 
                         listView1.Items.Add(item); // Listeye ekle
                     }
                     // ListView genişliğini ayarla
-                    listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
                 }
             }

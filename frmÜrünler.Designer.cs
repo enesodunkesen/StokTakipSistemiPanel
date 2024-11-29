@@ -36,15 +36,20 @@
             columnHeader5 = new ColumnHeader();
             label1 = new Label();
             button1 = new Button();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // listView1
             // 
             listView1.BackColor = SystemColors.Window;
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
-            listView1.Location = new Point(180, 200);
+            listView1.Dock = DockStyle.Fill;
+            listView1.Location = new Point(0, 0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(1500, 900);
+            listView1.Size = new Size(800, 350);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -85,7 +90,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(180, 113);
+            button1.Location = new Point(31, 26);
             button1.Name = "button1";
             button1.Size = new Size(169, 50);
             button1.TabIndex = 2;
@@ -93,17 +98,37 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_ClickAsync;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(button1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(800, 100);
+            panel1.TabIndex = 3;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(listView1);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 100);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(800, 350);
+            panel2.TabIndex = 4;
+            // 
             // frmÜrünler
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(label1);
-            Controls.Add(listView1);
             Name = "frmÜrünler";
             Text = "frmÜrünler";
             Load += frmÜrünler_LoadAsync;
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -118,5 +143,7 @@
         private ColumnHeader columnHeader5;
         private Label label1;
         private Button button1;
+        private Panel panel1;
+        private Panel panel2;
     }
 }

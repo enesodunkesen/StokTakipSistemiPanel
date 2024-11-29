@@ -81,7 +81,7 @@ namespace StokTakipSistemiPanel.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://98d5-176-88-120-127.ngrok-free.app.
+        ///   Looks up a localized string similar to https://645a-176-88-120-127.ngrok-free.app.
         /// </summary>
         internal static string URL {
             get {

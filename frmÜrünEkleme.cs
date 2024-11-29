@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StokTakipSistemiPanel.DTOs.ProductDTOs;
+using StokTakipSistemiPanel.Properties;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -17,23 +19,17 @@ namespace StokTakipSistemiPanel
         {
             // Formdan verileri al
             var ürünAdı = ÜrünAdı.Text;
+            var ürünKategorisi = ÜrünKategorisi.Text;
             var ürünRengi = ÜrünRengi.Text;
-            var ürünAdeti = ÜrünAdeti.Text;
             var ürünFiyatı = ÜrünFiyatı.Text;
             var ürünBedeni = ÜrünBedeni.Text;
 
             // Girilen bilgilerin doğruluğunu kontrol et
-            if (string.IsNullOrWhiteSpace(ürünAdı) || string.IsNullOrWhiteSpace(ürünRengi) ||
-                string.IsNullOrWhiteSpace(ürünAdeti) || string.IsNullOrWhiteSpace(ürünFiyatı) ||
+            if (string.IsNullOrWhiteSpace(ürünAdı) || string.IsNullOrWhiteSpace(ürünRengi)
+              || string.IsNullOrWhiteSpace(ürünFiyatı) ||
                 string.IsNullOrWhiteSpace(ürünBedeni))
             {
                 MessageBox.Show("Lütfen tüm alanları doldurun.", "Eksik Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!int.TryParse(ürünAdeti, out var adet) || adet < 1)
-            {
-                MessageBox.Show("Ürün adeti geçerli bir sayı olmalıdır.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -44,44 +40,53 @@ namespace StokTakipSistemiPanel
             }
 
             // API isteği için ürün bilgilerini bir nesneye yerleştir
-            var ürünBilgisi = new
+            ProductCreateDto productCreateDto = new ProductCreateDto()
             {
-                Adı = ürünAdı,
-                Rengi = ürünRengi,
-                Adeti = adet,
-                Fiyatı = fiyat,
-                Bedeni = ürünBedeni
+                Name = ürünAdı,
+                CategoryId = Convert.ToInt32(ürünKategorisi),
+                Color = ürünRengi,
+                Price = Convert.ToDecimal(ürünFiyatı),
+                Size = ürünBedeni,
             };
 
             // JSON formatına dönüştür
-            var jsonVerisi = JsonSerializer.Serialize(ürünBilgisi);
+            var jsonVerisi = JsonSerializer.Serialize(productCreateDto);
             var içerik = new StringContent(jsonVerisi, Encoding.UTF8, "application/json");
 
             // API'ye POST isteği gönder
-            using var httpClient = new HttpClient();
-            try
-            {
-                var apiUrl = "https://30cb-176-88-120-127.ngrok-free.app/Product"; // Buraya gerçek API URL'sini yazın
-                var yanıt = await httpClient.PostAsync(apiUrl, içerik);
-
-                if (yanıt.IsSuccessStatusCode)
+            using (var httpClient = new HttpClient())
+            { try
                 {
-                    MessageBox.Show("Ürün başarıyla kaydedildi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // Formu temizleyin
+                    var apiUrl = Resources.URL + "/api/Products";
+                    var yanıt = await httpClient.PostAsync(apiUrl, içerik);
+
+                    if (yanıt.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Ürün başarıyla kaydedildi!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Formu temizleyin
+                        ÜrünAdı.Clear();
+                        ÜrünKategorisi.Clear();
+                        ÜrünRengi.Clear();
+                        ÜrünFiyatı.Clear();
+                        ÜrünBedeni.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Ürün kaydı başarısız: {yanıt.ReasonPhrase}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch(HttpRequestException a) {
                     ÜrünAdı.Clear();
+                    ÜrünKategorisi.Clear();
                     ÜrünRengi.Clear();
-                    ÜrünAdeti.Clear();
                     ÜrünFiyatı.Clear();
                     ÜrünBedeni.Clear();
                 }
-                else
-                {
-                    MessageBox.Show($"Ürün kaydı başarısız: {yanıt.ReasonPhrase}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
             catch (Exception ex)
-            {
-                MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    Console.WriteLine(ex);
+                    MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } 
             }
         }
 
